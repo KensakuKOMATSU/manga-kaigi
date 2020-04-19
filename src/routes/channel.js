@@ -121,7 +121,7 @@ export default class Channel extends Component<Props, State> {
               <Card
                 style={{ width: "100%" }}
                 hoverable
-                cover={<video ref={this.setSrcObject} autoPlay />}
+                cover={<video ref={this.setSrcObject} autoPlay playsInline/>}
               >
                 <Meta title="foo" description="bar"/>
               </Card>
@@ -136,7 +136,7 @@ export default class Channel extends Component<Props, State> {
                cover={
                  <video
                    stream={stream}
-                   ref={ (elem) => {this.setRemoteObject(elem, stream) }} autoPlay />
+                   ref={ (elem) => {this.setRemoteObject(elem, stream) }} autoPlay playsInline/>
                }
              >
                <Meta title="hoge" description="fuga" />
