@@ -25,7 +25,7 @@ import {
 } from '../libs/skyway-manager'
 
 const api = 'https://3ultgd8q23.execute-api.ap-northeast-1.amazonaws.com/dev'
-const apikey = 'fac69356-9c3d-45d4-9a10-2b4bcdaca3b3'
+const apikey = '18e81fae-027a-4ca9-a9e8-17d348a917f5'
 
 // fixme
 type DispatchProps = {
