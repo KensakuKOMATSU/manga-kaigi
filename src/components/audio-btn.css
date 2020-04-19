@@ -1,0 +1,12 @@
+.audio-btn {
+  align-items: center;
+  background-color: #00f;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  font-size: 6em;
+  height: 20vw;
+  justify-content: center;
+  width: 20vw;
+}
