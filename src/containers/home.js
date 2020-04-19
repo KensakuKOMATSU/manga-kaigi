@@ -13,8 +13,7 @@ const Home = _ => {
       <Title level={2}>Home</Title>
       <Skeleton />
       <ul>
-        <li><Link to="/">home</Link></li>
-        <li><Link to="/channels">グループチャネルを作る</Link></li>
+        <li><Link to="/channels">チャネルリストを見る＆グループチャネルを作る</Link></li>
         <li><Link to="/channels/testid">グループチャネル（id: `testid`) (開発用）</Link></li>
       </ul>
     </div>

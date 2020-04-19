@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import { 
   Button,
-  Typography 
+  Typography
 } from 'antd'
 import { Redirect } from 'react-router-dom'
 
@@ -32,7 +32,8 @@ export default class Generate extends Component<Props> {
         { this.props.channelId.length > 0 ? <Redirect push to={redirectPath} />: '' }
         <Title level={1}>Generate</Title>
         <div>
-          <Button type="primary" onClick={this.handleClick}>トランシーバーグループを作る</Button>
+          <Button type="primary" shape="circle" onClick={this.handleClick}
+            style={{width: 80, height: 80, fontSize: "3em"}}>+</Button>
         </div>
         <div>STATUS: {this.props.status}</div>
         <div>channelId: {this.props.channelId}</div>

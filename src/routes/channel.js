@@ -5,7 +5,10 @@ import { Redirect } from 'react-router-dom'
 import { 
   Alert,
   Modal,
-  Typography 
+  Typography,
+  Row,
+  Col,
+  Card
 } from 'antd'
 
 // import AudioBtn from '../components/audio-btn'
@@ -16,6 +19,7 @@ import {
 
 const { Title } = Typography
 const { confirm } = Modal
+const { Meta } = Card
 
 type Props = {
   changeStatusTalking: () => void,
@@ -70,6 +74,7 @@ export default class Channel extends Component<Props, State> {
   }
 
   setRemoteObject = (elem: Object, stream: Object): void => {
+    console.log( stream )
     if( elem )
       elem.srcObject = stream
   }
@@ -94,23 +99,51 @@ export default class Channel extends Component<Props, State> {
 
   render() {
     const channelId = this.props.match.params.channelId
+    const num = this.props.remoteStreams.length + 1
 
     return (
       <div className="Channel">
         { this.state.isCanceled ? <Redirect to="/"/>:'' }
-        <Title level={2}>channel: {channelId}</Title>
+        <Title level={2}>channel: 
+          <a href={`/channels/${channelId}`} 
+            target="_blank" 
+            rel="noopener noreferrer">
+              {channelId}
+          </a>
+        </Title>
         { this.props.errMessage
         ? <Alert message={this.props.errMessage} type="error" />
         : ''}
+        <Row>
        { this.props.localStream ? 
-         (<video ref={this.setSrcObject} autoPlay />)
+          (
+            <Col span={24 / num}>
+              <Card
+                style={{ width: "100%" }}
+                hoverable
+                cover={<video ref={this.setSrcObject} autoPlay />}
+              >
+                <Meta title="foo" description="bar"/>
+              </Card>
+            </Col>
+          )
        :""}
        { this.props.remoteStreams.map( (stream, idx) => (
-         <video 
-          key={idx} 
-          stream={stream}
-          ref={ elem => {this.setRemoteObject(elem, stream)}} autoPlay />
+           <Col span={24 / num} key={idx}>
+             <Card
+               style={{ width: "100%" }}
+               hoverable
+               cover={
+                 <video
+                   stream={stream}
+                   ref={ (elem) => {this.setRemoteObject(elem, stream) }} autoPlay />
+               }
+             >
+               <Meta title="hoge" description="fuga" />
+             </Card>
+           </Col>
        ))}
+        </Row>
        
         status: {this.props.status} 
       </div>
