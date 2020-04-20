@@ -11,6 +11,7 @@ export default class Manga {
     this.props = Object.assign({}, {
       edge: true,
       tone: true,
+      showImage: false,
       dark: 200,
       bright: 224,
     }, props )
@@ -22,7 +23,11 @@ export default class Manga {
   start = stream => {
     return new Promise( (resolve, reject) => {
       const videoElem = document.createElement('video')
-      videoElem.srcObject = stream
+      const img = new Image()
+      img.src = '/images/utage0.png'
+      img.onload = ev => {
+        videoElem.srcObject = stream
+      }
 
       videoElem.addEventListener('loadedmetadata', e => {
         videoElem.play()
@@ -42,6 +47,9 @@ export default class Manga {
           const imgData = tmpCtx.getImageData(0, 0, w, h)
           getMangaImg( imgData, mangaImg, w, h, this.props )
           mangaCtx.putImageData( mangaImg, 0, 0 )
+          if( this.showImage ) {
+            mangaCtx.drawImage( img, 0, 0, w, h )
+          }
 
           requestAnimationFrame( _draw )
         }

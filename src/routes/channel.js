@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import { 
   Alert,
+  Button,
   Modal,
   Typography,
   Row,
@@ -22,6 +23,7 @@ const { confirm } = Modal
 const { Meta } = Card
 
 type Props = {
+  changeShowImage: () => void,
   changeStatusTalking: () => void,
   setupMediaConnection: (channelId:string) => Promise<void>,
   setStatusError: (message:string) => void,
@@ -94,7 +96,7 @@ export default class Channel extends Component<Props, State> {
   }
   
   handleClick = ():void => {
-    this.props.changeStatusTalking()
+    this.props.changeShowImage()
   }
 
   render() {
@@ -144,6 +146,13 @@ export default class Channel extends Component<Props, State> {
            </Col>
        ))}
         </Row>
+       <Button 
+         shape="circle" 
+         type="danger" 
+         style={{width: 120, height: 120, fontSize: "1.2em"}}
+         onClick={this.handleClick}
+       >カンパイ！</Button>
+       <br />
        
         status: {this.props.status} 
       </div>

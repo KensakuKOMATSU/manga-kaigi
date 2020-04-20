@@ -52,6 +52,7 @@ const mapStateToProps = ( state: Object, ownProps: Object ): Object => {
  * @param {function} dispatch 
  */
 const mapDispatchToProps = (dispatch: function): DispatchProps => {
+  let manga;
   return {
     validateChannelId: async (channelId:string):Promise<Object> => {
       const url = `${api}/push2talk/channel/${channelId}`
@@ -75,7 +76,7 @@ const mapDispatchToProps = (dispatch: function): DispatchProps => {
 
       // todo - mute処理
       const stream = await getLocalStream()
-      const manga = new Manga()
+      manga = new Manga()
       await manga.start( stream )
       dispatch( setLocalStream( manga.stream ) )
 
@@ -96,7 +97,13 @@ const mapDispatchToProps = (dispatch: function): DispatchProps => {
         dispatch( removeRemoteStream(id) )
       })
     },
-    changeStatusTalking: async _ => {
+    changeShowImage: _ => {
+      manga.showImage = true
+      setTimeout( _ => {
+        manga.showImage = false
+      }, 1200)
+    },
+    changeStatusTalking: _ => {
       dispatch( changeStatusTalking() )
     },
     setStatusError: (message: string):void => {
