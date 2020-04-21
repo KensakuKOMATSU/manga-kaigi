@@ -12,8 +12,10 @@ const { Title } = Typography
 type Props = {
   status: string,
   channelId: string,
+  channelList: Object,
   changeStatusReady: () => {},
-  generateChannelId: () => {}
+  generateChannelId: () => {},
+  getChannelList: () => {}
 }
 
 export default class Generate extends Component<Props> {
@@ -23,6 +25,10 @@ export default class Generate extends Component<Props> {
 
   handleClick = async () => {
     await this.props.generateChannelId()
+  }
+
+  getChannelList = async _ => {
+    await this.props.getChannelList()
   }
 
   render() {
@@ -35,8 +41,22 @@ export default class Generate extends Component<Props> {
           <Button type="primary" shape="circle" onClick={this.handleClick}
             style={{width: 80, height: 80, fontSize: "3em"}}>+</Button>
         </div>
+        <div>
+          <Button type="default" onClick={this.getChannelList}>get Channel List</Button>
+        </div>
         <div>STATUS: {this.props.status}</div>
-        <div>channelId: {this.props.channelId}</div>
+        {
+          Object.entries(this.props.channelList).map(( [channelId, peers], idx ) => {
+            const url = `/channels/${channelId}`
+            const _peers = peers.map( item => item.peerId ).join(",")
+            return (  <span key={idx}>
+              <a href={url}>{channelId}</a>:
+              # of particepant: <span>{peers.length}</span>,
+              <span>{_peers}</span>
+            </span>
+            )
+          }
+        )}
       </div>
     )
   }

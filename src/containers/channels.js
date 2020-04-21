@@ -26,6 +26,7 @@ import {
 
 const api = 'https://3ultgd8q23.execute-api.ap-northeast-1.amazonaws.com/dev'
 const apikey = '18e81fae-027a-4ca9-a9e8-17d348a917f5'
+const mangaManager = 'http://localhost:3001/channels'
 
 // fixme
 type DispatchProps = {
@@ -73,6 +74,20 @@ const mapDispatchToProps = (dispatch: function): DispatchProps => {
       const { peer, peerid } = await connectSkyWay(apikey, 0) 
       dispatch( setPeerObj( peer ))
       dispatch( setLocalId( peerid ))
+
+      const url = `${mangaManager}/${channelId}`
+      const params = { peerId: peerid }
+      
+      setInterval( _ => {
+        fetch( url, {
+          'method': 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify( params )
+        }).then( res => res.text())
+        .then( txt => console.log( txt ))
+      }, 5000 ) // every 5 sec
 
       // todo - mute処理
       const stream = await getLocalStream()

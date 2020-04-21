@@ -10,12 +10,14 @@ export const STATUS = {
 
 const TYPES = {
   CHANGE_GENERATOR_STATUS: 'CHANGE_GENERATOR_STATUS',
-  SET_CHANNEL_ID: 'SET_CHANNEL_ID'
+  SET_CHANNEL_ID: 'SET_CHANNEL_ID',
+  SET_CHANNEL_LIST: 'SET_CHANNEL_LIST'
 }
 
 const initState = {
   status: STATUS.INIT,
-  channelId: ''
+  channelId: '',
+  channelList: {}
 }
 
 type Action = {
@@ -68,6 +70,14 @@ export const setChannelId = (channelId:string):Action => {
   }
 }
 
+export const setChannelList = (list: Object): Action => {
+  return {
+    type: TYPES.SET_CHANNEL_LIST,
+    payload: list
+  }
+
+}
+
 
 ///////////////////////////////////////////////////////
 // Reducer
@@ -78,6 +88,8 @@ export default ( state: Object = initState, action: Object ): Object => {
     return Object.assign({}, state, { status: action.payload })
   case TYPES.SET_CHANNEL_ID:
     return Object.assign({}, state, { channelId: action.payload} )
+  case TYPES.SET_CHANNEL_LIST:
+    return Object.assign({}, state, { channelList: action.payload} )
   default:
     return state
   }
