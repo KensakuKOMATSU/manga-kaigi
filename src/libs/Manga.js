@@ -44,11 +44,20 @@ export default class Manga {
 
         const _draw = () => {
           tmpCtx.drawImage( videoElem, 0, 0, w, h )
+          // todo - make this method
           const imgData = tmpCtx.getImageData(0, 0, w, h)
           getMangaImg( imgData, mangaImg, w, h, this.props )
           mangaCtx.putImageData( mangaImg, 0, 0 )
+
+          // todo - make this method
           if( this.showImage ) {
             mangaCtx.drawImage( img, 0, 0, w, h )
+
+            // draw rectangle to hide eyes
+            mangaCtx.beginPath()
+            mangaCtx.rect( 155, 90, 220, 75 )
+            mangaCtx.fillStyle = 'black'
+            mangaCtx.fill()
           }
 
           requestAnimationFrame( _draw )
