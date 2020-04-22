@@ -24,6 +24,9 @@ const store = createStore(combineReducers({
   app: appStore
 }), applyMiddleware( logger ))
 
+// make redux states accessible 
+window.getState = store.getState
+
 ReactDOM.render(<Provider store={ store } ><App /></Provider>, window.document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

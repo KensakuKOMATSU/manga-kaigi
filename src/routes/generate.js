@@ -45,6 +45,7 @@ export default class Generate extends Component<Props> {
           <Button type="default" onClick={this.getChannelList}>get Channel List</Button>
         </div>
         <div>STATUS: {this.props.status}</div>
+        {/* todo - component 化 */}
         {
           Object.entries(this.props.channelList).map(( [channelId, peers], idx ) => {
             const url = `/channels/${channelId}`

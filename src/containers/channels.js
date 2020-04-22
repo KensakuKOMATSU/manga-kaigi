@@ -10,6 +10,7 @@ import {
   setPeerObj,
   setLocalId,
   setRoomObj,
+  setMangaObj,
   setStatusError
 } from '../states/app-store'
 
@@ -53,7 +54,6 @@ const mapStateToProps = ( state: Object, ownProps: Object ): Object => {
  * @param {function} dispatch 
  */
 const mapDispatchToProps = (dispatch: function): DispatchProps => {
-  let manga;
   return {
     validateChannelId: async (channelId:string):Promise<Object> => {
       const url = `${api}/push2talk/channel/${channelId}`
@@ -91,8 +91,15 @@ const mapDispatchToProps = (dispatch: function): DispatchProps => {
 
       // todo - mute処理
       const stream = await getLocalStream()
-      manga = new Manga()
+      const manga = new Manga()
+
+      dispatch( setMangaObj(manga) )
       await manga.start( stream )
+
+      // todo - check kind is `audio`
+      const track = stream.getAudioTracks()[0]
+      manga.stream.addTrack(track)
+
       dispatch( setLocalStream( manga.stream ) )
 
       const room = joinMeshRoom(peer, channelId, manga.stream) 
@@ -113,9 +120,11 @@ const mapDispatchToProps = (dispatch: function): DispatchProps => {
       })
     },
     changeShowImage: _ => {
-      manga.showImage = true
+      const { app } = window.getState()
+      const { mangaObj } = app
+      mangaObj.showImage = true
       setTimeout( _ => {
-        manga.showImage = false
+        mangaObj.showImage = false
       }, 1200)
     },
     changeStatusTalking: _ => {

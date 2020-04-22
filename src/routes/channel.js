@@ -117,19 +117,21 @@ export default class Channel extends Component<Props, State> {
         ? <Alert message={this.props.errMessage} type="error" />
         : ''}
         <Row>
+          {/* todo - component化 */}
        { this.props.localStream ? 
           (
             <Col span={24 / num}>
               <Card
                 style={{ width: "100%" }}
                 hoverable
-                cover={<video ref={this.setSrcObject} autoPlay playsInline/>}
+                cover={<video ref={this.setSrcObject} autoPlay muted playsInline/>}
               >
                 <Meta title="foo" description="bar"/>
               </Card>
             </Col>
           )
        :""}
+          {/* todo - component化 */}
        { this.props.remoteStreams.map( (stream, idx) => (
            <Col span={24 / num} key={idx}>
              <Card

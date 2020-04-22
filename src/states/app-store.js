@@ -16,6 +16,7 @@ const TYPES = {
   SET_PEER_OBJ:     'APP_SET_PEER_OBJ',
   SET_LOCAL_ID:     'APP_SET_LOCAL_ID',
   SET_ROOM_OBJ:     'APP_SET_ROOM_OBJ',
+  SET_MANGA_OBJ:     'APP_SET_MANGA_OBJ'
 }
 
 const initState = {
@@ -27,7 +28,8 @@ const initState = {
   channelId: '',
   peerObj: null,
   localId: '',
-  roomObj: null
+  roomObj: null,
+  mangaObj: null,
 }
 
 type Action = {
@@ -106,6 +108,13 @@ export const setPeerObj = (peer:Peer):Action => {
   }
 }
 
+export const setMangaObj = (manga:Object):Action => {
+  return {
+    type: TYPES.SET_MANGA_OBJ,
+    payload: manga
+  }
+}
+
 export const setLocalId = (peerid:string):Action => {
   return {
     type: TYPES.SET_LOCAL_ID,
@@ -149,6 +158,8 @@ export default ( state: Object = initState, action: Object ): Object => {
     return Object.assign( {}, state, { localId: action.payload } )
   case TYPES.SET_ROOM_OBJ:
     return Object.assign( {}, state, { roomObj: action.payload } )
+  case TYPES.SET_MANGA_OBJ:
+    return Object.assign( {}, state, { mangaObj: action.payload } )
   case TYPES.SET_ERROR:
     return Object.assign( {}, state, { status: STATUS.ERROR, errMessage: action.payload })
   default:
