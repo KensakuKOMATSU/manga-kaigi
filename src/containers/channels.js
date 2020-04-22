@@ -27,7 +27,7 @@ import {
 
 const api = 'https://3ultgd8q23.execute-api.ap-northeast-1.amazonaws.com/dev'
 const apikey = '18e81fae-027a-4ca9-a9e8-17d348a917f5'
-const mangaManager = 'http://localhost:3001/channels'
+const mangaManager = 'https://manga-manager.m-pipe.net/channels'
 
 // fixme
 type DispatchProps = {
