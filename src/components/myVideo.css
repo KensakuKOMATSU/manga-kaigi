@@ -1,7 +1,8 @@
 .MyVideo{
   height: 0;
   overflow: hidden;
-  padding-bottom: calc(315 / 560 * 100%);
+  /* padding-bottom: calc(315 / 560 * 100%); */
+  padding-bottom: calc(3/ 4 * 100%);
   position: relative;
 }
 
