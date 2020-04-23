@@ -15,6 +15,7 @@ import {
 
 const api = 'https://3ultgd8q23.execute-api.ap-northeast-1.amazonaws.com/dev'
 const mangaManager = 'https://manga-manager.m-pipe.net/channels'
+// const mangaManager = 'http://localhost:3001/channels'
 
 const mapStateToProps = ( state: Object, ownProps: Object): Object => {
   return Object.assign({}, state.generate, {

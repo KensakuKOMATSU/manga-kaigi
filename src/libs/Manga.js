@@ -1,3 +1,21 @@
+// polyfill (toBlob)
+if (!HTMLCanvasElement.prototype.toBlob) {
+  Object.defineProperty(HTMLCanvasElement.prototype, 'toBlob', {
+   value: function (callback, type, quality) {
+ 
+     var binStr = atob( this.toDataURL(type, quality).split(',')[1] ),
+         len = binStr.length,
+         arr = new Uint8Array(len);
+ 
+     for (var i=0; i<len; i++ ) {
+      arr[i] = binStr.charCodeAt(i);
+     }
+ 
+     callback( new Blob( [arr], {type: type || 'image/png'} ) );
+   }
+  });
+ }
+
 const getCanvasContext = (width, height) => {
   const canvas = document.createElement('canvas')
     canvas.width = width
@@ -14,11 +32,23 @@ export default class Manga {
       showImage: false,
       dark: 200,
       bright: 224,
+      ctx: null
     }, props )
 
     this.stream = null
   }
 
+  getImage = _ => {
+    return new Promise((resolve, reject) => {
+      if( this.props.ctx && this.props.ctx.canvas ) {
+        const data = this.props.ctx.canvas.toDataURL('image/png')
+        resolve( data )
+        // this.props.ctx.canvas.toBlob(blob => { resolve(blob) }, 'image/png', 1)
+      } else {
+        reject( new Error('can not convert to Blob'))
+      }
+    })
+  }
 
   start = stream => {
     return new Promise( (resolve, reject) => {
@@ -47,6 +77,7 @@ export default class Manga {
           // todo - make this method
           const imgData = tmpCtx.getImageData(0, 0, w, h)
           getMangaImg( imgData, mangaImg, w, h, this.props )
+          this.props.ctx = mangaCtx
           mangaCtx.putImageData( mangaImg, 0, 0 )
 
           // todo - make this method

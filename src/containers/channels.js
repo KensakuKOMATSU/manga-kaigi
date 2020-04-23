@@ -28,6 +28,7 @@ import {
 const api = 'https://3ultgd8q23.execute-api.ap-northeast-1.amazonaws.com/dev'
 const apikey = '18e81fae-027a-4ca9-a9e8-17d348a917f5'
 const mangaManager = 'https://manga-manager.m-pipe.net/channels'
+// const mangaManager = 'http://localhost:3001/channels'
 
 // fixme
 type DispatchProps = {
@@ -95,6 +96,20 @@ const mapDispatchToProps = (dispatch: function): DispatchProps => {
 
       dispatch( setMangaObj(manga) )
       await manga.start( stream )
+
+      const data = await manga.getImage()
+      // fixme - change endpoint url
+      const _url = `http://localhost:3001/images/${channelId}/${peerid}`
+      console.log( _url )
+
+      fetch( _url, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({data})
+      }).then( res => res.text() ).then( txt => console.log( txt ))
+      .catch(err => console.warn( err.message ))
+
+      console.log( data )
 
       // todo - check kind is `audio`
       const track = stream.getAudioTracks()[0]
