@@ -11,6 +11,7 @@ import {
   Col,
   Card
 } from 'antd'
+import MyVideo from '../components/myVideo'
 
 // import AudioBtn from '../components/audio-btn'
 // import Speaker from '../components/speaker'
@@ -70,17 +71,6 @@ export default class Channel extends Component<Props, State> {
     await this.props.changeStatusTalking()
   }
 
-  setSrcObject = (elem: Object): void => {
-    if( elem )
-      elem.srcObject = this.props.localStream
-  }
-
-  setRemoteObject = (elem: Object, stream: Object): void => {
-    console.log( stream )
-    if( elem )
-      elem.srcObject = stream
-  }
-
   showConfirm = (channelId:string): void => {
     confirm({
       title: 'このグループ・トークに参加しますか？',
@@ -124,7 +114,7 @@ export default class Channel extends Component<Props, State> {
               <Card
                 style={{ width: "100%" }}
                 hoverable
-                cover={<video ref={this.setSrcObject} autoPlay muted playsInline/>}
+                cover={<MyVideo stream={this.props.localStream} />}
               >
                 <Meta title="foo" description="bar"/>
               </Card>
@@ -137,11 +127,7 @@ export default class Channel extends Component<Props, State> {
              <Card
                style={{ width: "100%" }}
                hoverable
-               cover={
-                 <video
-                   stream={stream}
-                   ref={ (elem) => {this.setRemoteObject(elem, stream) }} autoPlay playsInline/>
-               }
+               cover={ <MyVideo stream={stream} /> }
              >
                <Meta title="hoge" description="fuga" />
              </Card>

@@ -1,0 +1,15 @@
+.MyVideo{
+  height: 0;
+  overflow: hidden;
+  padding-bottom: calc(315 / 560 * 100%);
+  position: relative;
+}
+
+.MyVideo video{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border: 1px solid #000;
+}
